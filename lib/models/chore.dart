@@ -12,3 +12,9 @@ class Chore {
       this.isDone = false,
       this.priority = Priority.none});
 }
+
+List<Chore> dumbell = [
+  Chore(name: 'Купить гирю'),
+  Chore(name: 'Купить гирю'),
+  Chore(name: 'Купить гирю'),
+];
