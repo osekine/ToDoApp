@@ -15,11 +15,13 @@ class _ChoreWidgetState extends State<ChoreWidget> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      contentPadding:
+          const EdgeInsets.symmetric(horizontal: 16.0, vertical: 2.0),
       title: Text(widget.chore.name),
       leading: widget.chore.isDone
-          ? const Icon(Icons.check)
-          : const Icon(Icons.close),
-      trailing: const Icon(Icons.info),
+          ? const Icon(Icons.check_box)
+          : const Icon(Icons.check_box_outline_blank),
+      trailing: const Icon(Icons.info_outline),
     );
   }
 }

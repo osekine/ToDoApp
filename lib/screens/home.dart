@@ -9,12 +9,16 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        //TODO: сделать сливер
         appBar: AppBar(
           title: Text('Мои дела'),
         ),
         body: Card(
-          child: ListView(
-            children: [...dumbell.map((chore) => ChoreWidget(chore))],
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: ListView(
+              children: [...dumbell.map((chore) => ChoreWidget(chore))],
+            ),
           ),
         ));
   }
