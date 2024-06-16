@@ -8,36 +8,40 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
         body: CustomScrollView(slivers: [
       SliverAppBar(
-        elevation: 8,
+        elevation: 16,
         expandedHeight: 100,
-        // leading: SizedBox(height: 0, width: 0),
         pinned: true,
         flexibleSpace: FlexibleSpaceBar(
-          title:
-              Text('Мои дела', style: Theme.of(context).textTheme.titleLarge),
-        ),
-      ),
-      SliverToBoxAdapter(
-        child: Card(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Column(
-              children: [
-                ...dumbell.map((chore) => ChoreWidget(chore)),
-                const ListTile(
-                  leading: SizedBox(width: 0, height: 0),
-                  title: Text(
-                    'Новое',
-                  ),
-                )
-              ],
-            ),
+          collapseMode: CollapseMode.pin,
+          background: Container(color: theme.colorScheme.background),
+          title: Text(
+            'Мои дела',
+            style: theme.textTheme.titleLarge,
           ),
         ),
       ),
+      // SliverToBoxAdapter(
+      //   child: Card(
+      //     child: Padding(
+      //       padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      //       child: Column(
+      //         children: [
+      //           ...dumbell.map((chore) => ChoreWidget(chore)),
+      //           const ListTile(
+      //             leading: SizedBox(width: 0, height: 0),
+      //             title: Text(
+      //               'Новое',
+      //             ),
+      //           )
+      //         ],
+      //       ),
+      //     ),
+      //   ),
+      // ),
     ]));
   }
 }
