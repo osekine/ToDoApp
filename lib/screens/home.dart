@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import '../constants/text.dart';
 import '../models/chore.dart';
 import '../widgets/chore.dart';
 
@@ -52,14 +53,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Positioned(
                       left: 0,
-                      bottom: (20 - _controller.offset).clamp(0, 20),
+                      bottom: _controller.hasClients
+                          ? (20 - _controller.offset).clamp(0, 20)
+                          : 20,
                       child: Text(
                         'Мои дела',
-                        style: theme.textTheme.titleLarge,
+                        style: TextOption.getCustomStyle(
+                            style: TextStyles.title,
+                            color: theme.colorScheme.onBackground),
                       ),
                     ),
                     Opacity(
-                      opacity: (1 - _controller.offset / 10).clamp(0, 1),
+                      opacity: _controller.hasClients
+                          ? (1 - _controller.offset / 10).clamp(0, 1)
+                          : 1,
                       child: Text(
                         'Выполнено дел - 0',
                         style: theme.textTheme.titleSmall,
