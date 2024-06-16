@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_app/constants/text.dart';
+import 'package:to_do_app/constants/themes.dart';
 import 'package:to_do_app/screens/home.dart';
 
 void main() {
@@ -11,11 +13,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      title: 'To Do App',
+      theme: lightTheme,
       home: const HomeScreen(),
     );
   }

@@ -9,17 +9,35 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        //TODO: сделать сливер
-        appBar: AppBar(
-          title: Text('Мои дела'),
+        body: CustomScrollView(slivers: [
+      SliverAppBar(
+        elevation: 8,
+        expandedHeight: 100,
+        // leading: SizedBox(height: 0, width: 0),
+        pinned: true,
+        flexibleSpace: FlexibleSpaceBar(
+          title:
+              Text('Мои дела', style: Theme.of(context).textTheme.titleLarge),
         ),
-        body: Card(
+      ),
+      SliverToBoxAdapter(
+        child: Card(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: ListView(
-              children: [...dumbell.map((chore) => ChoreWidget(chore))],
+            child: Column(
+              children: [
+                ...dumbell.map((chore) => ChoreWidget(chore)),
+                const ListTile(
+                  leading: SizedBox(width: 0, height: 0),
+                  title: Text(
+                    'Новое',
+                  ),
+                )
+              ],
             ),
           ),
-        ));
+        ),
+      ),
+    ]));
   }
 }
