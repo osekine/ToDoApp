@@ -3,37 +3,60 @@ import 'package:to_do_app/constants/text.dart';
 
 import '../models/chore.dart';
 
-class ChoreWidget extends StatefulWidget {
+class ChoreWidget extends StatelessWidget {
   final Chore chore;
   const ChoreWidget(this.chore, {super.key});
 
   @override
-  State<ChoreWidget> createState() => _ChoreWidgetState();
-}
-
-class _ChoreWidgetState extends State<ChoreWidget> {
-  @override
   Widget build(BuildContext context) {
-    return ListTile(
-      contentPadding:
-          const EdgeInsets.symmetric(horizontal: 16.0, vertical: 2.0),
-      title: getChore(context, widget.chore),
-      leading: widget.chore.isDone
-          ? const Icon(Icons.check_box, color: Colors.green)
-          : Icon(Icons.check_box_outline_blank,
-              color: widget.chore.priority == Priority.high
-                  ? Colors.red
-                  : Colors.grey),
-      trailing: const Icon(Icons.info_outline),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 16.0),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 1,
+            child: chore.isDone
+                ? const Icon(Icons.check_box, color: Colors.green)
+                : Icon(Icons.check_box_outline_blank,
+                    color: chore.priority == Priority.high
+                        ? Colors.red
+                        : Colors.grey),
+          ),
+          Expanded(
+            flex: 5,
+            child: _getChore(context, chore),
+          ),
+          const Expanded(flex: 1, child: Icon(Icons.info_outline)),
+        ],
+      ),
     );
+    // ListTile(
+    //   contentPadding:
+    //       const EdgeInsets.symmetric(horizontal: 16.0, vertical: 2.0),
+    //   title: getChore(context, widget.chore),
+    //   leading: widget.chore.isDone
+    //       ? const Icon(Icons.check_box, color: Colors.green)
+    //       : Icon(Icons.check_box_outline_blank,
+    //           color: widget.chore.priority == Priority.high
+    //               ? Colors.red
+    //               : Colors.grey),
+    //   trailing: const Icon(Icons.info_outline),
+    // );
   }
 }
 
-Widget getChore(BuildContext context, Chore chore) {
+Widget _getChore(BuildContext context, Chore chore) {
   final colors = Theme.of(context).colorScheme;
   if (chore.isDone) {
-    return Text(chore.name,
-        style: const TextStyle(decoration: TextDecoration.lineThrough));
+    return Text(
+      chore.name,
+      style: TextOption.getCustomStyle(
+          style: TextStyles.body,
+          color: colors.onSurface,
+          decoration: TextDecoration.lineThrough),
+      overflow: TextOverflow.ellipsis,
+      maxLines: 3,
+    );
   }
 
   if (chore.priority == Priority.high) {
@@ -42,9 +65,15 @@ Widget getChore(BuildContext context, Chore chore) {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Icon(Icons.priority_high_outlined, color: colors.error),
-        Text(chore.name,
+        Expanded(
+          child: Text(
+            chore.name,
             style: TextOption.getCustomStyle(
-                style: TextStyles.body, color: colors.onBackground)),
+                style: TextStyles.body, color: colors.onBackground),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 3,
+          ),
+        ),
       ],
     );
   }
@@ -57,14 +86,26 @@ Widget getChore(BuildContext context, Chore chore) {
         const Icon(
           Icons.arrow_downward_outlined,
         ),
-        Text(chore.name,
+        Expanded(
+          child: Text(
+            chore.name,
             style: TextOption.getCustomStyle(
-                style: TextStyles.body, color: colors.onBackground)),
+                style: TextStyles.body, color: colors.onBackground),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 3,
+          ),
+        ),
       ],
     );
   }
 
-  return Text(chore.name,
-      style: TextOption.getCustomStyle(
-          style: TextStyles.body, color: colors.onBackground));
+  return Text(
+    chore.name,
+    style: TextOption.getCustomStyle(
+      style: TextStyles.body,
+      color: colors.onBackground,
+    ),
+    overflow: TextOverflow.ellipsis,
+    maxLines: 3,
+  );
 }
