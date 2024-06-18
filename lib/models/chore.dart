@@ -24,7 +24,10 @@ List<Chore> dumbell = [
   Chore(name: 'Купить гирю'),
   Chore(name: 'Купить гирю'),
   Chore(name: 'Купить гирю'),
-  Chore(name: 'Купить гирю'),
+  Chore(
+      priority: Priority.low,
+      name:
+          'Мне пора прекратить покупать гири, но я не могу остановиться. Мне кажется, у меня есть проблемы'),
   Chore(name: 'Купить гирю'),
   Chore(name: 'Купить гирю'),
   Chore(name: 'Купить гирю'),

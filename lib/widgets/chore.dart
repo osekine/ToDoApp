@@ -3,45 +3,72 @@ import 'package:to_do_app/constants/text.dart';
 
 import '../models/chore.dart';
 
-class ChoreWidget extends StatelessWidget {
+class ChoreWidget extends StatefulWidget {
   final Chore chore;
   const ChoreWidget(this.chore, {super.key});
 
   @override
+  State<ChoreWidget> createState() => _ChoreWidgetState();
+}
+
+class _ChoreWidgetState extends State<ChoreWidget> {
+  double offset = 0;
+  @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 16.0),
-      child: Row(
-        children: [
-          Expanded(
-            flex: 1,
-            child: chore.isDone
-                ? const Icon(Icons.check_box, color: Colors.green)
-                : Icon(Icons.check_box_outline_blank,
-                    color: chore.priority == Priority.high
-                        ? Colors.red
-                        : Colors.grey),
-          ),
-          Expanded(
-            flex: 5,
-            child: _getChore(context, chore),
-          ),
-          const Expanded(flex: 1, child: Icon(Icons.info_outline)),
-        ],
+    return Dismissible(
+      key: ValueKey(widget.chore.hashCode),
+      confirmDismiss: (DismissDirection direction) async {
+        if (direction == DismissDirection.endToStart) {
+          print('delete');
+        } else {
+          print('confirm');
+        }
+        return Future.value(false);
+      },
+      onUpdate: (details) {
+        offset = details.progress;
+        setState(() {});
+      },
+      dismissThresholds: const {
+        DismissDirection.endToStart: 0.1,
+        DismissDirection.startToEnd: 0.1
+      },
+      background: Container(
+        color: Colors.green,
+        child: Align(
+          alignment: Alignment(((offset / 2 - 1)).clamp(-1, -0.9), 0),
+          child: const Icon(Icons.check),
+        ),
+      ),
+      secondaryBackground: Container(
+        color: Colors.red,
+        child: Align(
+          alignment: Alignment(((1 - offset / 2)).clamp(0.9, 1), 0),
+          child: const Icon(Icons.delete_outline),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 16.0),
+        child: Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: widget.chore.isDone
+                  ? const Icon(Icons.check_box, color: Colors.green)
+                  : Icon(Icons.check_box_outline_blank,
+                      color: widget.chore.priority == Priority.high
+                          ? Colors.red
+                          : Colors.grey),
+            ),
+            Expanded(
+              flex: 5,
+              child: _getChore(context, widget.chore),
+            ),
+            const Expanded(flex: 1, child: Icon(Icons.info_outline)),
+          ],
+        ),
       ),
     );
-    // ListTile(
-    //   contentPadding:
-    //       const EdgeInsets.symmetric(horizontal: 16.0, vertical: 2.0),
-    //   title: getChore(context, widget.chore),
-    //   leading: widget.chore.isDone
-    //       ? const Icon(Icons.check_box, color: Colors.green)
-    //       : Icon(Icons.check_box_outline_blank,
-    //           color: widget.chore.priority == Priority.high
-    //               ? Colors.red
-    //               : Colors.grey),
-    //   trailing: const Icon(Icons.info_outline),
-    // );
   }
 }
 
