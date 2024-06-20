@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:to_do_app/constants/text.dart';
 import 'package:to_do_app/models/chore.dart';
 
@@ -27,7 +26,7 @@ class NewChoreScreen extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(16.0),
         child: ListView(
           children: [
             TextField(
@@ -50,18 +49,37 @@ class NewChoreScreen extends StatelessWidget {
                 ),
               ),
             ),
-            DropdownMenu(
-                dropdownMenuEntries: Priority.values
-                    .map((e) => DropdownMenuEntry(value: e, label: e.name))
-                    .toList()),
-            const Divider(),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: DropdownMenu(
+                  label: const Text('Важность'),
+                  inputDecorationTheme: InputDecorationTheme(
+                    border: InputBorder.none,
+                    labelStyle: TextOption.getCustomStyle(
+                        style: TextStyles.subtitle, color: colors.onBackground),
+                  ),
+                  // helperText: 'Важность',
+                  enableSearch: false,
+                  menuStyle: MenuStyle(
+                    surfaceTintColor: MaterialStateColor.resolveWith(
+                        (states) => colors.surface),
+                    alignment: AlignmentDirectional.topStart,
+                  ),
+                  trailingIcon: const Icon(Icons.arrow_drop_down,
+                      color: Colors.transparent),
+                  initialSelection: Priority.none,
+                  dropdownMenuEntries: Priority.values
+                      .map((e) => DropdownMenuEntry(value: e, label: e.name))
+                      .toList()),
+            ),
+            Divider(color: colors.onSurface),
             Row(
               children: [
                 const Text('Сделать до'),
                 Switch(value: false, onChanged: ((value) {})),
               ],
             ),
-            const Divider(),
+            Divider(color: colors.onSurface),
             TextButton.icon(
                 onPressed: () {},
                 icon: const Icon(Icons.delete_outline),
