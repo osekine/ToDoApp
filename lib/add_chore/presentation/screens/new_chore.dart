@@ -13,6 +13,10 @@ class NewChoreScreen extends StatelessWidget {
     final colors = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(
+        elevation: 8,
+        forceMaterialTransparency: true,
+        surfaceTintColor: colors.surface,
+        shadowColor: colors.shadow,
         backgroundColor: colors.background,
         foregroundColor: colors.onBackground,
         leading: IconButton(
@@ -29,7 +33,7 @@ class NewChoreScreen extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.fromLTRB(16.0, 0, 16.0, 16.0),
         child: ListView(
           children: [
             const DescriptionWidget(),
@@ -41,6 +45,12 @@ class NewChoreScreen extends StatelessWidget {
             const ChoseDateWidget(),
             Divider(color: colors.onSurface),
             TextButton.icon(
+                style: TextButton.styleFrom(
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8.0))),
+                    foregroundColor: Colors.red,
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.zero),
                 onPressed: () {},
                 icon: const Icon(Icons.delete_outline),
                 label: const Text('Удалить')),
