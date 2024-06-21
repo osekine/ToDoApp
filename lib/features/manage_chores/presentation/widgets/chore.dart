@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/constants/text.dart';
+import 'package:to_do_app/utils/format.dart';
 
 import '../../../../models/chore.dart';
 
@@ -68,7 +69,7 @@ class _ChoreWidgetState extends State<ChoreWidget> {
                 children: [
                   _getChore(context, widget.chore),
                   if (widget.chore.deadline != null)
-                    Text(widget.chore.deadline.toString().split(' ')[0])
+                    Text(getFormattedDate(widget.chore.deadline!))
                 ],
               ),
             ),

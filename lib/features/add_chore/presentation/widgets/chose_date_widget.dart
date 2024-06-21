@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/constants/text.dart';
+import 'package:to_do_app/utils/format.dart';
 
 class ChoseDateWidget extends StatefulWidget {
   const ChoseDateWidget({
@@ -26,7 +27,7 @@ class _ChoseDateWidgetState extends State<ChoseDateWidget> {
                 style: TextOption.getCustomStyle(
                     style: TextStyles.body, color: colors.onBackground)),
             if (date != null)
-              Text(date!.toLocal().toString().split(' ')[0],
+              Text(getFormattedDate(date!.toLocal()),
                   style: TextOption.getCustomStyle(
                       style: TextStyles.body, color: colors.primary)),
           ],
