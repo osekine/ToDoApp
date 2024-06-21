@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/constants/text.dart';
+import 'package:to_do_app/features/add_chore/presentation/widgets/delete_description_widget.dart';
 
 import '../widgets/chose_date_widget.dart';
 import '../widgets/description_widget.dart';
@@ -44,16 +45,7 @@ class NewChoreScreen extends StatelessWidget {
             Divider(color: colors.onSurface),
             const ChoseDateWidget(),
             Divider(color: colors.onSurface),
-            TextButton.icon(
-                style: TextButton.styleFrom(
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8.0))),
-                    foregroundColor: Colors.red,
-                    alignment: Alignment.centerLeft,
-                    padding: EdgeInsets.zero),
-                onPressed: () {},
-                icon: const Icon(Icons.delete_outline),
-                label: const Text('Удалить')),
+            const DeleteDescriptionWidget(),
           ],
         ),
       ),
