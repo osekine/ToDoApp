@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/constants/themes.dart';
-import 'package:to_do_app/screens/home.dart';
+import 'package:to_do_app/features/manage_chores/presentation/screens/home.dart';
 
 void main() {
   runApp(const MyApp());

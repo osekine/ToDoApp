@@ -17,7 +17,6 @@ class PriorityWidget extends StatelessWidget {
           labelStyle: TextOption.getCustomStyle(
               style: TextStyles.subtitle, color: colors.onBackground),
         ),
-        // helperText: 'Важность',
         enableSearch: false,
         menuStyle: MenuStyle(
           surfaceTintColor:
