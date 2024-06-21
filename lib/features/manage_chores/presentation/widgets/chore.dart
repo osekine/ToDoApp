@@ -30,8 +30,8 @@ class _ChoreWidgetState extends State<ChoreWidget> {
         setState(() {});
       },
       dismissThresholds: const {
-        DismissDirection.endToStart: 0.1,
-        DismissDirection.startToEnd: 0.1
+        DismissDirection.endToStart: 0.2,
+        DismissDirection.startToEnd: 0.2
       },
       background: Container(
         color: Colors.green,
