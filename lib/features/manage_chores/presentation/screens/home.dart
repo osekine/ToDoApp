@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_app/features/manage_chores/domain/chore_list_provider.dart';
+import 'package:to_do_app/models/chore.dart';
 
 import '../../../add_chore/presentation/screens/new_chore.dart';
 import '../widgets/chore_list_body_widget.dart';
@@ -13,29 +15,37 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late final ScrollController _controller;
+  bool isDoneVisible = false;
 
-  void _moveSubtitle() {
-    if (_controller.offset < 100) setState(() {});
+  void toggleVisible() {
+    setState(() {
+      isDoneVisible = !isDoneVisible;
+    });
   }
 
   @override
   void initState() {
     super.initState();
     _controller = ScrollController();
-    _controller.addListener(_moveSubtitle);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-              builder: ((context) => const NewChoreScreen()))),
-          child: const Icon(Icons.add),
-        ),
-        body: CustomScrollView(controller: _controller, slivers: [
-          ChoreTitleAppbar(controller: _controller),
-          const ChoreListBodyWidget(),
-        ]));
+    return ChoreListProvider(
+      onToggleVisible: toggleVisible,
+      scrollController: _controller,
+      chores: dumbell,
+      isDoneVisible: isDoneVisible,
+      child: Scaffold(
+          floatingActionButton: FloatingActionButton(
+            onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                builder: ((context) => const NewChoreScreen()))),
+            child: const Icon(Icons.add),
+          ),
+          body: CustomScrollView(controller: _controller, slivers: const [
+            ChoreTitleAppbar(),
+            ChoreListBodyWidget(),
+          ])),
+    );
   }
 }

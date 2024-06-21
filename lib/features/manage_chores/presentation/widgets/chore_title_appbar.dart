@@ -1,17 +1,29 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do_app/constants/text.dart';
+import 'package:to_do_app/features/manage_chores/domain/chore_list_provider.dart';
 
-class ChoreTitleAppbar extends StatelessWidget {
+import 'visibility_widget.dart';
+
+class ChoreTitleAppbar extends StatefulWidget {
   const ChoreTitleAppbar({
     super.key,
-    required ScrollController controller,
-  }) : _controller = controller;
-
-  final ScrollController _controller;
+  });
 
   @override
+  State<ChoreTitleAppbar> createState() => _ChoreTitleAppbarState();
+}
+
+class _ChoreTitleAppbarState extends State<ChoreTitleAppbar> {
+  @override
   Widget build(BuildContext context) {
+    final _controller = ChoreListProvider.of(context).scrollController;
+    if (!_controller.hasListeners) {
+      _controller.addListener(() {
+        if (_controller.offset < 100) {
+          setState(() {});
+        }
+      });
+    }
     final theme = Theme.of(context);
     return SliverAppBar(
       surfaceTintColor: theme.colorScheme.surface,
@@ -49,14 +61,14 @@ class ChoreTitleAppbar extends StatelessWidget {
                         ? (1 - _controller.offset / 10).clamp(0, 1)
                         : 1,
                     child: Text(
-                      'Выполнено дел - 0',
+                      'Выполнено дел - ${ChoreListProvider.of(context).doneCount}',
                       style: theme.textTheme.titleSmall,
                     ),
                   ),
                 ],
               ),
             ),
-            const Expanded(flex: 1, child: Icon(Icons.visibility_off_outlined))
+            const Expanded(flex: 1, child: VisibilityWidget())
           ],
         ),
       ),
