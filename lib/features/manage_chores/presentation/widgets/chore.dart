@@ -47,28 +47,33 @@ class _ChoreWidgetState extends State<ChoreWidget> {
           child: const Icon(Icons.delete_outline),
         ),
       ),
-      child: Container(
-        color: Theme.of(context).colorScheme.surface,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 16.0),
-          child: Row(
-            children: [
-              Expanded(
-                flex: 1,
-                child: widget.chore.isDone
-                    ? const Icon(Icons.check_box, color: Colors.green)
-                    : Icon(Icons.check_box_outline_blank,
-                        color: widget.chore.priority == Priority.high
-                            ? Colors.red
-                            : Colors.grey),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 16.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 1,
+              child: widget.chore.isDone
+                  ? const Icon(Icons.check_box, color: Colors.green)
+                  : Icon(Icons.check_box_outline_blank,
+                      color: widget.chore.priority == Priority.high
+                          ? Colors.red
+                          : Colors.grey),
+            ),
+            Expanded(
+              flex: 5,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _getChore(context, widget.chore),
+                  if (widget.chore.deadline != null)
+                    Text(widget.chore.deadline.toString().split(' ')[0])
+                ],
               ),
-              Expanded(
-                flex: 5,
-                child: _getChore(context, widget.chore),
-              ),
-              const Expanded(flex: 1, child: Icon(Icons.info_outline)),
-            ],
-          ),
+            ),
+            const Expanded(flex: 1, child: Icon(Icons.info_outline)),
+          ],
         ),
       ),
     );

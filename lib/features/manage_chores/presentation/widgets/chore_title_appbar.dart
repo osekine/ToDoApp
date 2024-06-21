@@ -16,10 +16,10 @@ class ChoreTitleAppbar extends StatefulWidget {
 class _ChoreTitleAppbarState extends State<ChoreTitleAppbar> {
   @override
   Widget build(BuildContext context) {
-    final _controller = ChoreListProvider.of(context).scrollController;
-    if (!_controller.hasListeners) {
-      _controller.addListener(() {
-        if (_controller.offset < 100) {
+    final controller = ChoreListProvider.of(context).scrollController;
+    if (!controller.hasListeners) {
+      controller.addListener(() {
+        if (controller.offset < 100) {
           setState(() {});
         }
       });
@@ -46,8 +46,8 @@ class _ChoreTitleAppbarState extends State<ChoreTitleAppbar> {
                 children: [
                   Positioned(
                     left: 0,
-                    bottom: _controller.hasClients
-                        ? (20 - _controller.offset).clamp(0, 20)
+                    bottom: controller.hasClients
+                        ? (20 - controller.offset).clamp(0, 20)
                         : 20,
                     child: Text(
                       'Мои дела',
@@ -57,8 +57,8 @@ class _ChoreTitleAppbarState extends State<ChoreTitleAppbar> {
                     ),
                   ),
                   Opacity(
-                    opacity: _controller.hasClients
-                        ? (1 - _controller.offset / 10).clamp(0, 1)
+                    opacity: controller.hasClients
+                        ? (1 - controller.offset / 10).clamp(0, 1)
                         : 1,
                     child: Text(
                       'Выполнено дел - ${ChoreListProvider.of(context).doneCount}',

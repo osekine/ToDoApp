@@ -14,7 +14,11 @@ class Chore {
 }
 
 List<Chore> dumbell = [
-  Chore(name: 'Купить гирю'),
+  Chore(
+      name: 'Купить гирю',
+      isDone: true,
+      priority: Priority.high,
+      deadline: DateTime.now()),
   Chore(name: 'Купить гирю'),
   Chore(name: 'Купить гирю'),
   Chore(name: 'Купить большую гирю', priority: Priority.high),
@@ -28,7 +32,7 @@ List<Chore> dumbell = [
       priority: Priority.low,
       name:
           'Мне пора прекратить покупать гири, но я не могу остановиться. Мне кажется, у меня есть проблемы'),
-  Chore(name: 'Купить гирю'),
+  Chore(name: 'Купить гирю', isDone: true),
   Chore(name: 'Купить гирю'),
   Chore(name: 'Купить гирю'),
   Chore(name: 'Купить гирю'),
