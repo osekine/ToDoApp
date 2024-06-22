@@ -1,16 +1,16 @@
-# to_do_app
+# To-Do List
 
-A new Flutter project.
+Очередное приложение для смартфонов, которое позволяет создавать и отслеживать запланированные задачи
 
-## Getting Started
+![Основной экран с выключенным фильтром выполненных дел.](/assets/screenshots/First.png)
+![Основной экран со включенным фильтром выполненных дел.](/assets/screenshots/Second.png)
+![Экран создания нового дела](/assets/screenshots/Third.png)
 
-This project is a starting point for a Flutter application.
+## Особенности
+ * Удобный список с отображением всех запланированных задач
+ * Фильтр выполненных задач
+ * Возможность указывать приоритет и дедлайн задачи
 
-A few resources to get you started if this is your first Flutter project:
+## Скачать
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Скачать первый релиз можно по [ссылке](https://github.com/osekine/ToDoApp/releases/tag/first)
