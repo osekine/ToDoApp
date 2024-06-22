@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:to_do_app/constants/text.dart';
 import 'package:to_do_app/utils/format.dart';
 
@@ -13,6 +14,10 @@ class ChoreWidget extends StatefulWidget {
 }
 
 class _ChoreWidgetState extends State<ChoreWidget> {
+  final log = Logger(
+    printer: PrettyPrinter(),
+    level: Level.debug,
+  );
   double offset = 0;
   @override
   Widget build(BuildContext context) {
@@ -20,9 +25,9 @@ class _ChoreWidgetState extends State<ChoreWidget> {
       key: ValueKey(widget.chore.hashCode),
       confirmDismiss: (DismissDirection direction) async {
         if (direction == DismissDirection.endToStart) {
-          print('delete');
+          log.d('${widget.chore.hashCode} deleted');
         } else {
-          print('confirm');
+          log.d('${widget.chore.hashCode} confirmed');
         }
         return Future.value(false);
       },

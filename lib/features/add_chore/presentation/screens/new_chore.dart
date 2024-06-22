@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:to_do_app/constants/text.dart';
 import 'package:to_do_app/features/add_chore/presentation/widgets/delete_description_widget.dart';
 
@@ -11,6 +12,10 @@ class NewChoreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final log = Logger(
+      printer: PrettyPrinter(),
+      level: Level.debug,
+    );
     final colors = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(
@@ -22,11 +27,17 @@ class NewChoreScreen extends StatelessWidget {
         foregroundColor: colors.onBackground,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () {
+            log.d('Poped to HomeScreen');
+            Navigator.pop(context);
+          },
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () {
+              log.d('Saved chore');
+              Navigator.pop(context);
+            },
             child: Text('Сохранить'.toUpperCase(),
                 style: TextOption.getCustomStyle(
                     style: TextStyles.button, color: Colors.blue)),

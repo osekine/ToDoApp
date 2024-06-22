@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:to_do_app/features/manage_chores/domain/chore_list_provider.dart';
 import 'package:to_do_app/models/chore.dart';
 
@@ -16,10 +17,15 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late final ScrollController _controller;
   bool isDoneVisible = false;
+  final log = Logger(
+    printer: PrettyPrinter(),
+    level: Level.debug,
+  );
 
   void toggleVisible() {
     setState(() {
       isDoneVisible = !isDoneVisible;
+      log.d('Chores visibility changed to $isDoneVisible');
     });
   }
 
@@ -38,8 +44,11 @@ class _HomeScreenState extends State<HomeScreen> {
       isDoneVisible: isDoneVisible,
       child: Scaffold(
           floatingActionButton: FloatingActionButton(
-            onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: ((context) => const NewChoreScreen()))),
+            onPressed: () {
+              log.d('Pushed to NewChoreScreen');
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: ((context) => const NewChoreScreen())));
+            },
             child: const Icon(Icons.add),
           ),
           body: CustomScrollView(controller: _controller, slivers: const [
