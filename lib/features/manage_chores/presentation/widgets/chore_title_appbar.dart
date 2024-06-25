@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/constants/text.dart';
 import 'package:to_do_app/features/manage_chores/domain/chore_list_provider.dart';
-
 import 'visibility_widget.dart';
 
 class ChoreTitleAppbar extends StatefulWidget {
@@ -14,16 +13,21 @@ class ChoreTitleAppbar extends StatefulWidget {
 }
 
 class _ChoreTitleAppbarState extends State<ChoreTitleAppbar> {
+  ScrollController? controller;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    controller ??= ChoreListProvider.of(context).scrollController;
+    ChoreListProvider.of(context).tryAddScrollListener(() {
+      if (controller!.offset < 100) {
+        setState(() {});
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final controller = ChoreListProvider.of(context).scrollController;
-    if (!controller.hasListeners) {
-      controller.addListener(() {
-        if (controller.offset < 100) {
-          setState(() {});
-        }
-      });
-    }
     final theme = Theme.of(context);
     return SliverAppBar(
       surfaceTintColor: theme.colorScheme.surface,
@@ -46,8 +50,8 @@ class _ChoreTitleAppbarState extends State<ChoreTitleAppbar> {
                 children: [
                   Positioned(
                     left: 0,
-                    bottom: controller.hasClients
-                        ? (20 - controller.offset).clamp(0, 20)
+                    bottom: controller!.hasClients
+                        ? (20 - controller!.offset).clamp(0, 20)
                         : 20,
                     child: Text(
                       'Мои дела',
@@ -57,8 +61,8 @@ class _ChoreTitleAppbarState extends State<ChoreTitleAppbar> {
                     ),
                   ),
                   Opacity(
-                    opacity: controller.hasClients
-                        ? (1 - controller.offset / 10).clamp(0, 1)
+                    opacity: controller!.hasClients
+                        ? (1 - controller!.offset / 10).clamp(0, 1)
                         : 1,
                     child: Text(
                       'Выполнено дел - ${ChoreListProvider.of(context).doneCount}',
@@ -73,5 +77,11 @@ class _ChoreTitleAppbarState extends State<ChoreTitleAppbar> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    controller?.dispose();
+    super.dispose();
   }
 }

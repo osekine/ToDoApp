@@ -8,13 +8,14 @@ class ChoreListProvider extends InheritedWidget {
   final ScrollController scrollController;
   final VoidCallback onToggleVisible;
 
-  const ChoreListProvider(
-      {super.key,
-      required this.chores,
-      required this.isDoneVisible,
-      required this.scrollController,
-      required this.onToggleVisible,
-      required super.child});
+  const ChoreListProvider({
+    super.key,
+    required this.chores,
+    required this.isDoneVisible,
+    required this.scrollController,
+    required this.onToggleVisible,
+    required super.child,
+  });
 
   @override
   bool updateShouldNotify(ChoreListProvider oldWidget) {
@@ -22,13 +23,24 @@ class ChoreListProvider extends InheritedWidget {
         chores.length != oldWidget.chores.length;
   }
 
-  static ChoreListProvider of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<ChoreListProvider>()
-        as ChoreListProvider;
-  }
+  static ChoreListProvider? maybeOf(
+    BuildContext context, {
+    required bool listen,
+  }) =>
+      listen
+          ? context.dependOnInheritedWidgetOfExactType<ChoreListProvider>()
+          : context.getInheritedWidgetOfExactType();
+
+  static ChoreListProvider of(BuildContext context) =>
+      maybeOf(context, listen: true)!;
 
   List<Chore> get choreList =>
       isDoneVisible ? chores : chores.where((chore) => !chore.isDone).toList();
 
   int get doneCount => chores.where((chore) => chore.isDone).length;
+
+  void tryAddScrollListener(VoidCallback listener) =>
+      scrollController.hasClients
+          ? scrollController.addListener(listener)
+          : null;
 }

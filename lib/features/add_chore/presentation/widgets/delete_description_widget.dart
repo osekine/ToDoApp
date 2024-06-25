@@ -8,14 +8,17 @@ class DeleteDescriptionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton.icon(
-        style: TextButton.styleFrom(
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8.0))),
-            foregroundColor: Colors.red,
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.zero),
-        onPressed: () {},
-        icon: const Icon(Icons.delete_outline),
-        label: const Text('Удалить'));
+      style: TextButton.styleFrom(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+        ),
+        foregroundColor: Colors.red,
+        alignment: Alignment.centerLeft,
+        padding: EdgeInsets.zero,
+      ),
+      onPressed: () {},
+      icon: const Icon(Icons.delete_outline),
+      label: const Text('Удалить'),
+    );
   }
 }

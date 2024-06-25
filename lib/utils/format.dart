@@ -11,7 +11,7 @@ String getFormattedDate(DateTime date) {
     'сентября',
     'октября',
     'ноября',
-    'декабря'
+    'декабря',
   ];
   return '${date.day} ${months[date.month.toInt()]} ${date.year}';
 }

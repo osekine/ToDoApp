@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:to_do_app/constants/text.dart';
-import 'package:to_do_app/utils/format.dart';
+part of '../screens/new_chore.dart';
 
 class ChoseDateWidget extends StatefulWidget {
   const ChoseDateWidget({
@@ -12,7 +10,6 @@ class ChoseDateWidget extends StatefulWidget {
 }
 
 class _ChoseDateWidgetState extends State<ChoseDateWidget> {
-  bool dateActive = false;
   DateTime? date;
   @override
   Widget build(BuildContext context) {
@@ -23,33 +20,40 @@ class _ChoseDateWidgetState extends State<ChoseDateWidget> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Сделать до',
-                style: TextOption.getCustomStyle(
-                    style: TextStyles.body, color: colors.onBackground)),
+            Text(
+              'Сделать до',
+              style: TextOption.getCustomStyle(
+                style: TextStyles.body,
+                color: colors.onBackground,
+              ),
+            ),
             if (date != null)
-              Text(getFormattedDate(date!.toLocal()),
-                  style: TextOption.getCustomStyle(
-                      style: TextStyles.body, color: colors.primary)),
+              Text(
+                getFormattedDate(date!.toLocal()),
+                style: TextOption.getCustomStyle(
+                  style: TextStyles.body,
+                  color: colors.primary,
+                ),
+              ),
           ],
         ),
         Switch(
-            value: dateActive,
-            onChanged: ((value) async {
-              if (!value) {
-                date = null;
-                dateActive = false;
-                setState(() {});
-                return;
-              }
-              dateActive = value;
-              final newDate = await showDatePicker(
-                  context: context,
-                  firstDate: DateTime.now(),
-                  lastDate: DateTime(DateTime.now().year + 1));
-              date = newDate;
-              dateActive = date != null;
+          value: date != null,
+          onChanged: ((value) async {
+            if (!value) {
+              date = null;
               setState(() {});
-            })),
+              return;
+            }
+            final newDate = await showDatePicker(
+              context: context,
+              firstDate: DateTime.now(),
+              lastDate: DateTime(DateTime.now().year + 1),
+            );
+            date = newDate;
+            setState(() {});
+          }),
+        ),
       ],
     );
   }

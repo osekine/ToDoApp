@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 import 'package:to_do_app/constants/themes.dart';
 import 'package:to_do_app/features/manage_chores/presentation/screens/home.dart';
+import 'package:to_do_app/utils/logs.dart';
 
 void main() {
-  final log = Logger(
-    printer: PrettyPrinter(),
-    level: Level.debug,
-  );
-  log.d('App started');
+  Logs.log('App started');
   runApp(const MyApp());
 }
 
