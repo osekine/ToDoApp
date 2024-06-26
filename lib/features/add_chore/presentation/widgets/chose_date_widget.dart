@@ -11,8 +11,39 @@ class ChoseDateWidget extends StatefulWidget {
 
 class _ChoseDateWidgetState extends State<ChoseDateWidget> {
   DateTime? date;
+  bool canSwitch = false;
+
+  void chooseDate(bool value) async {
+    if (!value || !canSwitch) {
+      setState(() {
+        date = null;
+      });
+      return;
+    }
+    final newDate = await showDatePicker(
+      context: context,
+      firstDate: DateTime.now(),
+      lastDate: DateTime(DateTime.now().year + 1),
+    );
+    setState(() {
+      date = newDate;
+      AddChoreProvider.of(context).changeDate(date!);
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    bool newCanSwitch = AddChoreProvider.of(context).hasChore;
+    if (newCanSwitch != canSwitch) {
+      canSwitch = newCanSwitch;
+      chooseDate(false);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    Logs.log('Build data description widget');
     final colors = Theme.of(context).colorScheme;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -38,21 +69,8 @@ class _ChoseDateWidgetState extends State<ChoseDateWidget> {
           ],
         ),
         Switch(
-          value: date != null,
-          onChanged: ((value) async {
-            if (!value) {
-              date = null;
-              setState(() {});
-              return;
-            }
-            final newDate = await showDatePicker(
-              context: context,
-              firstDate: DateTime.now(),
-              lastDate: DateTime(DateTime.now().year + 1),
-            );
-            date = newDate;
-            setState(() {});
-          }),
+          value: date != null && canSwitch,
+          onChanged: chooseDate,
         ),
       ],
     );

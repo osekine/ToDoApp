@@ -9,8 +9,12 @@ class AddChoreProvider extends InheritedWidget {
     required this.textController,
     this.date,
     this.priority = Priority.none,
+    required this.changeDate,
+    required this.changePriority,
   });
 
+  final Function(DateTime) changeDate;
+  final Function(Priority) changePriority;
   final bool hasChore;
   final TextEditingController textController;
   final DateTime? date;

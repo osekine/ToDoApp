@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../domain/add_chore_provider.dart';
+
 class DeleteDescriptionWidget extends StatelessWidget {
   const DeleteDescriptionWidget({
     super.key,
@@ -7,6 +9,7 @@ class DeleteDescriptionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final model = AddChoreProvider.of(context);
     return TextButton.icon(
       style: TextButton.styleFrom(
         shape: const RoundedRectangleBorder(
@@ -16,7 +19,9 @@ class DeleteDescriptionWidget extends StatelessWidget {
         alignment: Alignment.centerLeft,
         padding: EdgeInsets.zero,
       ),
-      onPressed: () {},
+      onPressed: () {
+        model.textController.clear();
+      },
       icon: const Icon(Icons.delete_outline),
       label: const Text('Удалить'),
     );

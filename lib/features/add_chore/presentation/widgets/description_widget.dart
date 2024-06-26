@@ -10,6 +10,8 @@ class DescriptionWidget extends StatelessWidget {
     final colors = Theme.of(context).colorScheme;
 
     return TextField(
+      onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
+      controller: AddChoreProvider.of(context).textController,
       maxLines: null,
       minLines: 5,
       style: TextOption.getCustomStyle(
