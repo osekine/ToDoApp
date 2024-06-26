@@ -35,10 +35,14 @@ class NewChoreScreen extends StatelessWidget {
               Logs.log('Saved chore');
               Navigator.pop(context);
             },
-            child: Text('Сохранить'.toUpperCase(),
-                style: TextOption.getCustomStyle(
-                    style: TextStyles.button, color: Colors.blue)),
-          )
+            child: Text(
+              'Сохранить'.toUpperCase(),
+              style: TextOption.getCustomStyle(
+                style: TextStyles.button,
+                color: Colors.blue,
+              ),
+            ),
+          ),
         ],
       ),
       body: Padding(

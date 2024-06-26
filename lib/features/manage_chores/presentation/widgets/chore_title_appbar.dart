@@ -56,8 +56,9 @@ class _ChoreTitleAppbarState extends State<ChoreTitleAppbar> {
                     child: Text(
                       'Мои дела',
                       style: TextOption.getCustomStyle(
-                          style: TextStyles.title,
-                          color: theme.colorScheme.onBackground),
+                        style: TextStyles.title,
+                        color: theme.colorScheme.onBackground,
+                      ),
                     ),
                   ),
                   Opacity(
@@ -72,7 +73,7 @@ class _ChoreTitleAppbarState extends State<ChoreTitleAppbar> {
                 ],
               ),
             ),
-            const Expanded(flex: 1, child: VisibilityWidget())
+            const Expanded(flex: 1, child: VisibilityWidget()),
           ],
         ),
       ),
