@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/constants/themes.dart';
 import 'package:to_do_app/features/manage_chores/presentation/screens/home.dart';
+import 'package:to_do_app/models/chore.dart';
+import 'package:to_do_app/models/client.dart';
 import 'package:to_do_app/utils/logs.dart';
 
 void main() {
@@ -13,11 +15,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final model = ClientModel<Chore>(data: dumbell);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'To Do App',
       theme: darkTheme,
-      home: const HomeScreen(),
+      home: HomeScreen(model: model),
     );
   }
 }
