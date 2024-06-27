@@ -19,8 +19,10 @@ class ChoreListProvider extends InheritedWidget {
 
   @override
   bool updateShouldNotify(ChoreListProvider oldWidget) {
-    return isDoneVisible != oldWidget.isDoneVisible ||
-        client.data != oldWidget.client.data; //временная заглушка
+    return true;
+    // return isDoneVisible != oldWidget.isDoneVisible ||
+    //     client.data?.length !=
+    //         oldWidget.client.data?.length; //временная заглушка
   }
 
   static ChoreListProvider? maybeOf(

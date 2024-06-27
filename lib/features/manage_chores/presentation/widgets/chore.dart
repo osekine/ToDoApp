@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/constants/text.dart';
+import 'package:to_do_app/features/manage_chores/domain/chore_list_provider.dart';
 import 'package:to_do_app/utils/format.dart';
 
 import 'package:to_do_app/models/chore.dart';
@@ -23,10 +24,12 @@ class _ChoreWidgetState extends State<ChoreWidget> {
       confirmDismiss: (DismissDirection direction) async {
         if (direction == DismissDirection.endToStart) {
           Logs.log('${widget.chore.hashCode} deleted');
+          ChoreListProvider.of(context).client.remove(widget.chore);
+          return Future.value(true);
         } else {
           Logs.log('${widget.chore.hashCode} confirmed');
+          return Future.value(false);
         }
-        return Future.value(false);
       },
       onUpdate: (details) {
         offset = details.progress;
@@ -71,7 +74,7 @@ class _ChoreWidgetState extends State<ChoreWidget> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ChoreTextWidget(chore: widget.chore),
+                  _ChoreTextWidget(chore: widget.chore),
                   if (widget.chore.deadline != null)
                     Text(getFormattedDate(widget.chore.deadline!)),
                 ],
@@ -85,8 +88,8 @@ class _ChoreWidgetState extends State<ChoreWidget> {
   }
 }
 
-class ChoreTextWidget extends StatelessWidget {
-  const ChoreTextWidget({super.key, required this.chore});
+class _ChoreTextWidget extends StatelessWidget {
+  const _ChoreTextWidget({super.key, required this.chore});
   final Chore chore;
 
   @override

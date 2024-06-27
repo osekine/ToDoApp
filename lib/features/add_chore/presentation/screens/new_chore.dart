@@ -69,22 +69,22 @@ class _NewChoreScreenState extends State<NewChoreScreen> {
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
               Logs.log('Poped to HomeScreen');
-              Chore? newChore;
-              if (hasChore) {
-                newChore = Chore(
-                  name: textController.text,
-                  deadline: dateTime,
-                  priority: priority,
-                );
-              }
-              Navigator.maybePop<Chore?>(context, newChore);
+              Navigator.maybePop(context);
             },
           ),
           actions: [
             TextButton(
               onPressed: () {
                 Logs.log('Saved chore');
-                Navigator.pop(context);
+                Chore? newChore;
+                if (hasChore) {
+                  newChore = Chore(
+                    name: textController.text,
+                    deadline: dateTime,
+                    priority: priority,
+                  );
+                }
+                Navigator.maybePop<Chore?>(context, newChore);
               },
               child: Text(
                 'Сохранить'.toUpperCase(),

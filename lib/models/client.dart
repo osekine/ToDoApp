@@ -14,7 +14,7 @@ class ClientModel<T> implements IDataSource<T> {
 
   @override
   void add(T item) {
-    data?.add(item);
+    data = [item, ...data ?? []];
   }
 
   @override
@@ -35,6 +35,7 @@ class ClientModel<T> implements IDataSource<T> {
 
   @override
   void remove(T item) {
-    data?.remove(item);
+    // data?.remove(item);
+    data = data?.where((element) => element != item).toList();
   }
 }

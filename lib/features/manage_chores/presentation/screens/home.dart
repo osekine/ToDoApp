@@ -43,13 +43,19 @@ class _HomeScreenState extends State<HomeScreen> {
       isDoneVisible: isDoneVisible,
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
+          onPressed: () async {
             Logs.log('Pushed to NewChoreScreen');
-            Navigator.of(context).push(
+            final newChore = await Navigator.of(context).push<Chore?>(
               MaterialPageRoute(
                 builder: ((context) => const NewChoreScreen()),
               ),
             );
+            Logs.log(newChore?.name ?? 'No new chore');
+            if (newChore != null) {
+              setState(() {
+                widget.model.add(newChore);
+              });
+            }
           },
           child: const Icon(Icons.add),
         ),
