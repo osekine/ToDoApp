@@ -4,10 +4,13 @@ class NetworkDataSource<T> implements IDataSource<T> {
   @override
   List<T>? data;
 
+  String baseUrl = 'https://beta.mrdekk.ru/todo/list';
+  String token = 'Wilwarin';
+
+  final dio = Dio();
+
   @override
-  void add(T data) {
-    // TODO: implement add
-  }
+  void add(T data) {}
 
   @override
   void clear() {
@@ -20,8 +23,20 @@ class NetworkDataSource<T> implements IDataSource<T> {
   }
 
   @override
-  Future<List<T>?> getData() {
+  Future<List<T>?> getData() async {
     // TODO: implement getData
+    final getListRequest = Options(
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
+    );
+    try {
+      final response = await dio.get(baseUrl, options: getListRequest);
+    } catch (e) {
+      Logs.log('$e');
+    }
+
     throw UnimplementedError();
   }
 

@@ -30,6 +30,11 @@ class ClientModel<T> implements IDataSource<T> {
 
   @override
   Future<List<T>?> getData() async {
+    try {
+      _networkStorage?.getData();
+    } catch (e) {
+      print(e);
+    }
     return data;
   }
 

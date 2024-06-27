@@ -37,10 +37,18 @@ dependencies:
   cupertino_icons: ^1.0.6
   google_fonts: ^6.2.0
   logger: ^2.3.0
+  dio: ^5.4.3+1
+  http: ^1.2.1
+  device_info_plus: ^10.1.0
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  json_serializable: ^6.8.0
+  build_runner: ^2.4.9
+
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
