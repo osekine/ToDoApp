@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = ClientModel<Chore>(data: dumbell);
+    final model = ClientModel<Chore>();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'To Do App',

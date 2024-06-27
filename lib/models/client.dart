@@ -1,3 +1,4 @@
+import '../utils/logs.dart';
 import 'i_data_source.dart';
 
 class ClientModel<T> implements IDataSource<T> {
@@ -10,11 +11,14 @@ class ClientModel<T> implements IDataSource<T> {
   ClientModel({this.data}) {
     _localStorage = LocalDataSource<T>();
     _networkStorage = NetworkDataSource<T>();
+    getData();
   }
 
   @override
   void add(T item) {
+    //TODO: add network choose
     data = [item, ...data ?? []];
+    _localStorage?.add(item);
   }
 
   @override
@@ -31,16 +35,21 @@ class ClientModel<T> implements IDataSource<T> {
   @override
   Future<List<T>?> getData() async {
     try {
-      _networkStorage?.getData();
+      data = await _networkStorage?.getData();
     } catch (e) {
-      print(e);
+      Logs.log('$e');
+      try {
+        data = await _localStorage?.getData();
+      } catch (e) {
+        Logs.log('$e');
+      }
     }
     return data;
   }
 
   @override
   void remove(T item) {
-    // data?.remove(item);
-    data = data?.where((element) => element != item).toList();
+    data?.remove(item);
+    _localStorage?.remove(item);
   }
 }

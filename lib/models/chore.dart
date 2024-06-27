@@ -30,19 +30,34 @@ class Chore {
     this.deadline,
     this.isDone = false,
     this.priority = Priority.none,
-  }) {
-    chagedAt = createdAt;
-    id = UniqueKey().hashCode;
-  }
+    int? id,
+    int? chagedAt,
+    int? createdAt,
+  })  : id = id ?? UniqueKey().hashCode,
+        chagedAt = chagedAt ?? DateTime.now().microsecondsSinceEpoch,
+        createdAt = createdAt ?? DateTime.now().microsecondsSinceEpoch;
 
+  @JsonKey(name: 'text')
   String name;
+
   final DateTime? deadline;
+
+  @JsonKey(name: 'done')
   final bool isDone;
+
+  @JsonKey(name: 'importance')
   final Priority priority;
-  final createdAt = DateTime.now().microsecondsSinceEpoch;
-  @JsonKey(name: 'change_at')
-  late int chagedAt;
-  late final int id;
+
+  @JsonKey(name: 'created_at')
+  final int createdAt;
+
+  @JsonKey(name: 'changed_at')
+  int chagedAt;
+
+  final int id;
+
+  @JsonKey(name: 'last_updated_by')
+  final String deviceId = 'le_Zaglushka';
 
   Chore copyWith({
     String? name,

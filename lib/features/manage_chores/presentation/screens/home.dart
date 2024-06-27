@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
-            widget.model.getData();
+            // widget.model.getData();
             Logs.log('Pushed to NewChoreScreen');
             final newChore = await Navigator.of(context).push<Chore?>(
               MaterialPageRoute(
