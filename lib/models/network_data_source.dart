@@ -4,6 +4,9 @@ class NetworkDataSource<T> implements IDataSource<T> {
   @override
   List<T>? data;
 
+  @override
+  int revision = 0;
+
   String baseUrl = 'https://beta.mrdekk.ru/todo/list';
   String token = 'Wilwarin';
 
@@ -43,5 +46,10 @@ class NetworkDataSource<T> implements IDataSource<T> {
   @override
   void remove(T data) {
     // TODO: implement remove
+  }
+
+  @override
+  void sync() {
+    // TODO: implement sync
   }
 }

@@ -79,10 +79,4 @@ class _ChoreTitleAppbarState extends State<ChoreTitleAppbar> {
       ),
     );
   }
-
-  @override
-  void dispose() {
-    controller?.dispose();
-    super.dispose();
-  }
 }

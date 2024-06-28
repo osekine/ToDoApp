@@ -2,19 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:to_do_app/models/chore.dart';
 import 'package:to_do_app/models/client.dart';
 
+/*
+  Идея: переделать на InheritedModel, сделать три аспекта: title, visibility и list
+  list обновляется при добавлении/удалении элемента, изменения выполненности Chore (если !isDoneVisible)
+  title обновляется при изменении выполненности и удалении Chore (если выполнен)
+  visibility обновляется при изменении состояния isDoneVisible
+*/
 class ChoreListProvider extends InheritedWidget {
   final ClientModel<Chore> client;
   final bool isDoneVisible;
   final ScrollController scrollController;
   final VoidCallback onToggleVisible;
+  final VoidCallback refresh;
 
   const ChoreListProvider({
     super.key,
+    required super.child,
     required this.client,
     required this.isDoneVisible,
     required this.scrollController,
     required this.onToggleVisible,
-    required super.child,
+    required this.refresh,
   });
 
   @override

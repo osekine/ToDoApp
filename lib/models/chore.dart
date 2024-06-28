@@ -43,7 +43,7 @@ class Chore {
   final DateTime? deadline;
 
   @JsonKey(name: 'done')
-  final bool isDone;
+  bool isDone;
 
   @JsonKey(name: 'importance')
   final Priority priority;
@@ -86,28 +86,28 @@ class Chore {
   int get hashCode => id;
 }
 
-List<Chore> dumbell = [
-  Chore(
-    name: 'Купить гирю',
-    isDone: true,
-    priority: Priority.high,
-  ),
-  Chore(name: 'Купить гирю'),
-  Chore(name: 'Купить гирю'),
-  Chore(name: 'Купить большую гирю', priority: Priority.high),
-  Chore(name: 'Купил гирю', isDone: true),
-  Chore(name: 'Купить маленькую гирю', priority: Priority.low),
-  Chore(name: 'Купить гирю'),
-  Chore(name: 'Купить гирю'),
-  Chore(name: 'Купить гирю'),
-  Chore(name: 'Купить гирю', isDone: true),
-  Chore(
-    priority: Priority.low,
-    name:
-        'Мне пора прекратить покупать гири, но я не могу остановиться. Мне кажется, у меня есть проблемы',
-  ),
-  Chore(name: 'Купить гирю', isDone: true),
-  Chore(name: 'Купить гирю'),
-  Chore(name: 'Купить гирю'),
-  Chore(name: 'Купить гирю'),
-];
+// List<Chore> dumbell = [
+//   Chore(
+//     name: 'Купить гирю',
+//     isDone: true,
+//     priority: Priority.high,
+//   ),
+//   Chore(name: 'Купить гирю'),
+//   Chore(name: 'Купить гирю'),
+//   Chore(name: 'Купить большую гирю', priority: Priority.high),
+//   Chore(name: 'Купил гирю', isDone: true),
+//   Chore(name: 'Купить маленькую гирю', priority: Priority.low),
+//   Chore(name: 'Купить гирю'),
+//   Chore(name: 'Купить гирю'),
+//   Chore(name: 'Купить гирю'),
+//   Chore(name: 'Купить гирю', isDone: true),
+//   Chore(
+//     priority: Priority.low,
+//     name:
+//         'Мне пора прекратить покупать гири, но я не могу остановиться. Мне кажется, у меня есть проблемы',
+//   ),
+//   Chore(name: 'Купить гирю', isDone: true),
+//   Chore(name: 'Купить гирю'),
+//   Chore(name: 'Купить гирю'),
+//   Chore(name: 'Купить гирю'),
+// ];

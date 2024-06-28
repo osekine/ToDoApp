@@ -10,17 +10,41 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late final ClientModel<Chore> model;
+
+  @override
+  void initState() {
+    super.initState();
+    model = ClientModel<Chore>();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final model = ClientModel<Chore>();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'To Do App',
       theme: darkTheme,
-      home: HomeScreen(model: model),
+      home: FutureBuilder(
+        future: model.getData(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) return HomeScreen(model: model);
+          return const Center(child: CircularProgressIndicator());
+        },
+      ),
     );
+  }
+
+  @override
+  void dispose() {
+    model.dispose();
+    super.dispose();
   }
 }

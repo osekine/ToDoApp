@@ -8,6 +8,9 @@ class ClientModel<T> implements IDataSource<T> {
   @override
   List<T>? data;
 
+  @override
+  int revision = 0;
+
   ClientModel({this.data}) {
     _localStorage = LocalDataSource<T>();
     _networkStorage = NetworkDataSource<T>();
@@ -17,6 +20,8 @@ class ClientModel<T> implements IDataSource<T> {
   @override
   void add(T item) {
     //TODO: add network choose
+    revision = revision + 1;
+    Logs.log('Client rev: $revision');
     data = [item, ...data ?? []];
     _localStorage?.add(item);
   }
@@ -40,6 +45,7 @@ class ClientModel<T> implements IDataSource<T> {
       Logs.log('$e');
       try {
         data = await _localStorage?.getData();
+        revision = _localStorage?.revision ?? 0;
       } catch (e) {
         Logs.log('$e');
       }
@@ -51,5 +57,10 @@ class ClientModel<T> implements IDataSource<T> {
   void remove(T item) {
     data?.remove(item);
     _localStorage?.remove(item);
+  }
+
+  @override
+  void sync() {
+    _localStorage?.sync();
   }
 }

@@ -34,9 +34,16 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  //TODO: подумать над улучшением
+  void refresh() {
+    widget.model.sync();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return ChoreListProvider(
+      refresh: refresh,
       onToggleVisible: toggleVisible,
       scrollController: _controller,
       client: widget.model,
@@ -44,7 +51,6 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
-            // widget.model.getData();
             Logs.log('Pushed to NewChoreScreen');
             final newChore = await Navigator.of(context).push<Chore?>(
               MaterialPageRoute(
@@ -69,5 +75,11 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }
