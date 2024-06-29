@@ -35,7 +35,7 @@ class LocalDataSource<T> implements IDataSource<T> {
   }
 
   @override
-  void remove(T item) {
+  void remove(T item, String id) {
     data?.remove(item);
     sync();
   }

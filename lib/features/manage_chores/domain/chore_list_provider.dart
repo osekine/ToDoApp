@@ -56,4 +56,6 @@ class ChoreListProvider extends InheritedWidget {
           : null;
 
   void updateChore(Chore chore) => client.update(chore, chore.id);
+
+  void removeChore(Chore chore) => client.remove(chore, chore.id);
 }

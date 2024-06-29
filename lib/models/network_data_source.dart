@@ -34,8 +34,9 @@ class NetworkDataSource<T> implements IDataSource<T> {
   }
 
   @override
-  void remove(T data) {
-    // TODO: implement remove
+  void remove(T item, String id) {
+    data?.remove(item);
+    _proxy.delete(id);
   }
 
   @override
@@ -125,6 +126,15 @@ class DioProxy<T> {
         '$baseUrl/$id',
         data: <String, dynamic>{'element': jsonDecode(body)},
       );
+    } catch (e) {
+      Logs.elog('$e');
+    }
+  }
+
+  void delete(String id) async {
+    Logs.log('NETWORK Deleting...');
+    try {
+      await _dio.delete('$baseUrl/$id');
     } catch (e) {
       Logs.elog('$e');
     }

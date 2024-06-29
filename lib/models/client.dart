@@ -78,9 +78,10 @@ class ClientModel<T> implements IDataSource<T> {
   }
 
   @override
-  void remove(T item) {
-    data?.remove(item);
-    _localStorage?.remove(item);
+  void remove(T item, String id) async {
+    _localStorage?.remove(item, id);
+    data = await _localStorage?.getData();
+    _networkStorage?.remove(item, id);
   }
 
   @override

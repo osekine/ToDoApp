@@ -13,7 +13,7 @@ abstract class IDataSource<T> {
   int revision = 0;
 
   void add(T item);
-  void remove(T item);
+  void remove(T item, String id);
   void clear();
   Future<List<T>?> getData();
   void dispose();

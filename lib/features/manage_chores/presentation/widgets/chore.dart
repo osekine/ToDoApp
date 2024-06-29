@@ -25,7 +25,7 @@ class _ChoreWidgetState extends State<ChoreWidget> {
         if (direction == DismissDirection.endToStart) {
           Logs.log('${widget.chore.hashCode} deleted');
           ChoreListProvider.of(context)
-            ..client.remove(widget.chore)
+            ..removeChore(widget.chore)
             ..refresh();
           return Future.value(true);
         } else {
