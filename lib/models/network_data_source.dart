@@ -41,7 +41,7 @@ class NetworkDataSource<T> implements IDataSource<T> {
 
   @override
   void sync() {
-    // TODO: implement sync
+    _proxy.syncronize(data!);
   }
 
   @override
@@ -63,6 +63,7 @@ class DioProxy<T> {
         onRequest: (options, handler) {
           options.headers['Authorization'] = 'Bearer $token';
           options.headers['X-Last-Known-Revision'] = revision;
+          options.connectTimeout = const Duration(seconds: 1);
           return handler.next(options);
         },
         onResponse: (response, handler) {
@@ -141,6 +142,13 @@ class DioProxy<T> {
   }
 
   void syncronize(List<T> data) async {
-    //изначально здесь должен был использоваться PATCH, но он не обновляет состояние элемента, только факт его наличия
+    Logs.log('NETWORK syncronizing...');
+    final body = jsonEncode(data);
+    Logs.log(body);
+    try {
+      await _dio.patch(baseUrl, data: {'list': jsonDecode(body)});
+    } catch (e) {
+      Logs.elog('$e');
+    }
   }
 }

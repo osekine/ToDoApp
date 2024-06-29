@@ -21,7 +21,6 @@ class ClientModel<T> implements IDataSource<T> {
   void add(T item) {
     revision = revision + 1;
     Logs.log('Client rev: $revision');
-    data?.add(item);
     _localStorage?.add(item);
     _networkStorage?.add(item);
   }
@@ -51,24 +50,20 @@ class ClientModel<T> implements IDataSource<T> {
     } catch (e) {
       Logs.log('$e');
     }
-    // if (networkData != null) {
-    //   revision =
-    //       max(_networkStorage?.revision ?? 0, _localStorage?.revision ?? 0);
-    //   if (revision > _networkStorage!.revision) {
-    //     data = localData;
-    //     _networkStorage!.data = data;
-    //     _networkStorage!.sync();
-    //     revision = _networkStorage!.revision;
-    //     _localStorage?.revision = revision;
-    //   }
-    // }
-    if (networkData != null) {
-      data = networkData;
+
+    if (networkData?.isNotEmpty ?? false) {
+      // _localStorage?.sync();
+      if (_localStorage?.revision != null &&
+          _localStorage!.revision > _networkStorage!.revision) {
+        _networkStorage!.data = localData;
+        _networkStorage!.sync();
+        _localStorage!.revision = _networkStorage!.revision;
+      }
+      data = _networkStorage!.data;
       revision = _networkStorage!.revision;
-      _localStorage?.data = data;
-      _localStorage?.sync();
     } else {
-      data = _localStorage?.data;
+      data = localData;
+      revision = _localStorage!.revision;
     }
 
     _networkStorage?.revision = revision;
@@ -80,7 +75,6 @@ class ClientModel<T> implements IDataSource<T> {
   @override
   void remove(T item, String id) async {
     _localStorage?.remove(item, id);
-    data = await _localStorage?.getData();
     _networkStorage?.remove(item, id);
   }
 

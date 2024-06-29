@@ -27,7 +27,7 @@ class _ChoseDateWidgetState extends State<ChoseDateWidget> {
     );
     setState(() {
       date = newDate;
-      AddChoreProvider.of(context).changeDate(date!);
+      if (date != null) AddChoreProvider.of(context).changeDate(date!);
     });
   }
 
