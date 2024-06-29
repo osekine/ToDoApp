@@ -17,16 +17,6 @@ class NetworkDataSource<T> implements IDataSource<T> {
   }
 
   @override
-  void clear() {
-    // TODO: implement clear
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-  }
-
-  @override
   Future<List<T>?> getData() async {
     data = await _proxy.load();
     revision = _proxy.revision;

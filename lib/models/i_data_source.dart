@@ -14,9 +14,7 @@ abstract class IDataSource<T> {
 
   void add(T item);
   void remove(T item, String id);
-  void clear();
   Future<List<T>?> getData();
-  void dispose();
   void sync();
   void update(T item, String id);
 }

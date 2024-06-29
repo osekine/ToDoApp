@@ -41,10 +41,4 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
-
-  @override
-  void dispose() {
-    model.dispose();
-    super.dispose();
-  }
 }

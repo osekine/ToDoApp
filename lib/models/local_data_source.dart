@@ -16,16 +16,6 @@ class LocalDataSource<T> implements IDataSource<T> {
   }
 
   @override
-  void clear() {
-    // TODO: implement clear
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-  }
-
-  @override
   Future<List<T>?> getData() async {
     final loadedData = await _proxy.load();
     revision = loadedData.$1 ?? 0;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:uuid/uuid.dart';
 
 part 'chore.g.dart';
 
@@ -36,7 +37,7 @@ class Chore {
     int? createdAt,
     String? deviceId,
   })  : deviceId = deviceId ?? 'leZaglushka',
-        id = id ?? UniqueKey().toString().substring(2, 7),
+        id = id ?? const Uuid().v1(),
         deadline = deadline ??
             (deadlineInMs == null
                 ? null

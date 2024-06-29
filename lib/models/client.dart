@@ -26,17 +26,6 @@ class ClientModel<T> implements IDataSource<T> {
   }
 
   @override
-  void clear() {
-    data?.clear();
-  }
-
-  @override
-  void dispose() {
-    _localStorage?.dispose();
-    _networkStorage?.dispose();
-  }
-
-  @override
   Future<List<T>?> getData() async {
     List<T>? networkData;
     List<T>? localData;
@@ -51,8 +40,7 @@ class ClientModel<T> implements IDataSource<T> {
       Logs.log('$e');
     }
 
-    if (networkData?.isNotEmpty ?? false) {
-      // _localStorage?.sync();
+    if (networkData?.isEmpty ?? false) {
       if (_localStorage?.revision != null &&
           _localStorage!.revision > _networkStorage!.revision) {
         _networkStorage!.data = localData;
