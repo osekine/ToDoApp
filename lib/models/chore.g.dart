@@ -14,7 +14,7 @@ Chore _$ChoreFromJson(Map<String, dynamic> json) => Chore(
       isDone: json['done'] as bool? ?? false,
       priority: $enumDecodeNullable(_$PriorityEnumMap, json['importance']) ??
           Priority.none,
-      id: (json['id'] as num?)?.toInt(),
+      id: json['id'] as String?,
       chagedAt: (json['changed_at'] as num?)?.toInt(),
       createdAt: (json['created_at'] as num?)?.toInt(),
     );

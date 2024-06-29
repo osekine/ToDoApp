@@ -8,7 +8,6 @@ import 'package:to_do_app/utils/logs.dart';
 part 'local_data_source.dart';
 part 'network_data_source.dart';
 
-//TODO: испоьзовать record чтобы получать ревизию и список из getData
 abstract class IDataSource<T> {
   List<T>? data;
   int revision = 0;

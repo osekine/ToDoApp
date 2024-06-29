@@ -30,10 +30,10 @@ class Chore {
     this.deadline,
     this.isDone = false,
     this.priority = Priority.none,
-    int? id,
+    String? id,
     int? chagedAt,
     int? createdAt,
-  })  : id = id ?? UniqueKey().hashCode,
+  })  : id = id ?? UniqueKey().toString(),
         chagedAt = chagedAt ?? DateTime.now().microsecondsSinceEpoch,
         createdAt = createdAt ?? DateTime.now().microsecondsSinceEpoch;
 
@@ -54,7 +54,7 @@ class Chore {
   @JsonKey(name: 'changed_at')
   int chagedAt;
 
-  final int id;
+  final String id;
 
   @JsonKey(name: 'last_updated_by')
   final String deviceId = 'le_Zaglushka';
@@ -83,7 +83,7 @@ class Chore {
       other is Chore && runtimeType == other.runtimeType && id == other.id;
 
   @override
-  int get hashCode => id;
+  int get hashCode => id.hashCode;
 }
 
 // List<Chore> dumbell = [
