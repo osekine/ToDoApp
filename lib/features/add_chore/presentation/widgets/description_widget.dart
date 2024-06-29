@@ -22,7 +22,7 @@ class DescriptionWidget extends StatelessWidget {
         filled: true,
         isDense: true,
         fillColor: colors.surface,
-        hintText: 'Что надо сделать...',
+        hintText: S.of(context).help,
         hintStyle: TextOption.getCustomStyle(
           style: TextStyles.body,
           color: colors.onSurface,

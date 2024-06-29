@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:to_do_app/constants/themes.dart';
 import 'package:to_do_app/features/manage_chores/presentation/screens/home.dart';
 import 'package:to_do_app/models/chore.dart';
 import 'package:to_do_app/models/client.dart';
 import 'package:to_do_app/utils/logs.dart';
+
+import 'generated/l10n.dart';
 
 void main() {
   Logs.log('App started');
@@ -29,6 +32,13 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: const [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
       debugShowCheckedModeBanner: false,
       title: 'To Do App',
       theme: darkTheme,

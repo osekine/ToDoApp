@@ -11,7 +11,7 @@ class PriorityWidget extends StatelessWidget {
     return DropdownMenu(
       onSelected: (value) =>
           AddChoreProvider.of(context).changePriority(value ?? Priority.none),
-      label: const Text('Важность'),
+      label: Text(S.of(context).importance),
       inputDecorationTheme: InputDecorationTheme(
         border: InputBorder.none,
         labelStyle: TextOption.getCustomStyle(

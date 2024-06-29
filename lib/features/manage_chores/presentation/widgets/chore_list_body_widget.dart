@@ -26,9 +26,9 @@ class ChoreListBodyWidget extends StatelessWidget {
                         builder: ((context) => const NewChoreScreen()),
                       ),
                     ),
-                    child: const ListTile(
-                      leading: SizedBox(width: 0, height: 0),
-                      title: Text('Новое'),
+                    child: ListTile(
+                      leading: const SizedBox(width: 0, height: 0),
+                      title: Text(S.of(context).newChore),
                     ),
                   ),
             childCount: chores.length + 1,

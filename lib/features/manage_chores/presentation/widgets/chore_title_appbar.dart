@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/constants/text.dart';
 import 'package:to_do_app/features/manage_chores/domain/chore_list_provider.dart';
+import 'package:to_do_app/generated/l10n.dart';
 import 'visibility_widget.dart';
 
 class ChoreTitleAppbar extends StatefulWidget {
@@ -54,7 +55,7 @@ class _ChoreTitleAppbarState extends State<ChoreTitleAppbar> {
                         ? (20 - controller!.offset).clamp(0, 20)
                         : 20,
                     child: Text(
-                      'Мои дела',
+                      S.of(context).title,
                       style: TextOption.getCustomStyle(
                         style: TextStyles.title,
                         color: theme.colorScheme.onBackground,
@@ -66,7 +67,7 @@ class _ChoreTitleAppbarState extends State<ChoreTitleAppbar> {
                         ? (1 - controller!.offset / 10).clamp(0, 1)
                         : 1,
                     child: Text(
-                      'Выполнено дел - ${ChoreListProvider.of(context).doneCount}',
+                      '${S.of(context).doneChores}${ChoreListProvider.of(context).doneCount}',
                       style: theme.textTheme.titleSmall,
                     ),
                   ),

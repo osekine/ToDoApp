@@ -3,6 +3,7 @@ import 'package:to_do_app/features/manage_chores/domain/chore_list_provider.dart
 import 'package:to_do_app/features/add_chore/presentation/screens/new_chore.dart';
 import 'package:to_do_app/features/manage_chores/presentation/widgets/chore_title_appbar.dart';
 import 'package:to_do_app/features/manage_chores/presentation/widgets/chore.dart';
+import 'package:to_do_app/generated/l10n.dart';
 import 'package:to_do_app/models/chore.dart';
 import 'package:to_do_app/models/client.dart';
 import 'package:to_do_app/utils/logs.dart';
@@ -34,7 +35,6 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  //TODO: подумать над улучшением
   void refresh() {
     widget.model.sync();
     setState(() {});

@@ -43,7 +43,6 @@ class _ChoseDateWidgetState extends State<ChoseDateWidget> {
 
   @override
   Widget build(BuildContext context) {
-    Logs.log('Build data description widget');
     final colors = Theme.of(context).colorScheme;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -52,7 +51,7 @@ class _ChoseDateWidgetState extends State<ChoseDateWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Сделать до',
+              S.of(context).deadline,
               style: TextOption.getCustomStyle(
                 style: TextStyles.body,
                 color: colors.onBackground,

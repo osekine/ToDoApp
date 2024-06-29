@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/constants/text.dart';
 import 'package:to_do_app/features/add_chore/domain/add_chore_provider.dart';
-import 'package:to_do_app/features/add_chore/presentation/widgets/delete_description_widget.dart';
+import 'package:to_do_app/generated/l10n.dart';
 import 'package:to_do_app/models/chore.dart';
 import 'package:to_do_app/utils/format.dart';
 import 'package:to_do_app/utils/logs.dart';
@@ -9,6 +9,7 @@ import 'package:to_do_app/utils/logs.dart';
 part '../widgets/chose_date_widget.dart';
 part '../widgets/description_widget.dart';
 part '../widgets/priority_widget.dart';
+part '../widgets/delete_description_widget.dart';
 
 class NewChoreScreen extends StatefulWidget {
   const NewChoreScreen({super.key});
@@ -87,7 +88,7 @@ class _NewChoreScreenState extends State<NewChoreScreen> {
                 Navigator.maybePop<Chore?>(context, newChore);
               },
               child: Text(
-                'Сохранить'.toUpperCase(),
+                S.of(context).save.toUpperCase(),
                 style: TextOption.getCustomStyle(
                   style: TextStyles.button,
                   color: Colors.blue,

@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-
-import '../../domain/add_chore_provider.dart';
+part of '../screens/new_chore.dart';
 
 class DeleteDescriptionWidget extends StatelessWidget {
   const DeleteDescriptionWidget({
@@ -23,7 +21,7 @@ class DeleteDescriptionWidget extends StatelessWidget {
         model.textController.clear();
       },
       icon: const Icon(Icons.delete_outline),
-      label: const Text('Удалить'),
+      label: Text(S.of(context).delete),
     );
   }
 }
