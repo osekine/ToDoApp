@@ -18,4 +18,5 @@ abstract class IDataSource<T> {
   Future<List<T>?> getData();
   void dispose();
   void sync();
+  void update(T item, String id);
 }

@@ -11,7 +11,7 @@ class LocalDataSource<T> implements IDataSource<T> {
 
   @override
   void add(T item) {
-    data = [item, ...data ?? []];
+    data?.add(item);
     sync();
   }
 
@@ -45,6 +45,11 @@ class LocalDataSource<T> implements IDataSource<T> {
     Logs.log('LOCAL Syncing...');
     revision = revision + 1;
     _proxy.save(data ?? [], revision);
+  }
+
+  @override
+  void update(T item, String id) {
+    sync();
   }
 }
 

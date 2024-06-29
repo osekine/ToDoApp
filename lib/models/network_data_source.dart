@@ -11,7 +11,7 @@ class NetworkDataSource<T> implements IDataSource<T> {
 
   @override
   void add(T item) {
-    data = [item, ...data ?? []];
+    data?.add(item);
     _proxy.save(item);
     revision = _proxy.revision;
   }
@@ -42,6 +42,11 @@ class NetworkDataSource<T> implements IDataSource<T> {
   void sync() {
     // TODO: implement sync
   }
+
+  @override
+  void update(T item, String id) {
+    _proxy.update(item, id);
+  }
 }
 
 class DioProxy<T> {
@@ -59,6 +64,13 @@ class DioProxy<T> {
           options.headers['X-Last-Known-Revision'] = revision;
           return handler.next(options);
         },
+        onResponse: (response, handler) {
+          if (response.requestOptions.method != 'GET' &&
+              response.statusCode == 200) {
+            revision++;
+          }
+          return handler.next(response);
+        },
       ),
     );
   }
@@ -71,11 +83,12 @@ class DioProxy<T> {
         final jsonBody = jsonDecode(response.data!);
         final listBody = jsonBody['list'] as List;
         revision = jsonBody['revision'] as int;
-        loadedData = listBody.map((e) => Chore.fromJson(e) as T).toList();
+        loadedData =
+            listBody.map((e) => Chore.fromJson(e) as T).toList(); //TODO: fix
         Logs.log('Network Rev: $revision');
       }
     } catch (e) {
-      Logs.log('$e');
+      Logs.elog('$e');
     }
     return Future.value(loadedData ?? <T>[]);
   }
@@ -94,26 +107,30 @@ class DioProxy<T> {
         baseUrl,
         data: <String, dynamic>{'element': jsonDecode(body)},
       );
-      revision++;
       Logs.log(response.data!);
     } catch (e) {
-      Logs.log('$e');
+      Logs.elog('$e');
+    }
+  }
+
+  void update(T data, String id) async {
+    Logs.log('NETWORK Updating...');
+    final body = jsonEncode(
+      data,
+      toEncodable: ((nonEncodable) =>
+          data is Chore ? data.toJson() : nonEncodable),
+    ); //TODO: fix
+    try {
+      await _dio.put(
+        '$baseUrl/$id',
+        data: <String, dynamic>{'element': jsonDecode(body)},
+      );
+    } catch (e) {
+      Logs.elog('$e');
     }
   }
 
   void syncronize(List<T> data) async {
-    final body = data
-        .map(
-          (e) => jsonEncode(
-            e,
-            toEncodable: ((nonEncodable) =>
-                e is Chore ? e.toJson() : nonEncodable),
-          ),
-        )
-        .toList();
-    final response = await _dio.patch(
-      baseUrl,
-      data: {'list': body, 'revision': revision},
-    );
+    //изначально здесь должен был использоваться PATCH, но он не обновляет состояние элемента, только факт его наличия
   }
 }

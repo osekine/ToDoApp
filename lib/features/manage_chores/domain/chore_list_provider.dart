@@ -45,8 +45,8 @@ class ChoreListProvider extends InheritedWidget {
       maybeOf(context, listen: true)!;
 
   List<Chore> get choreList => isDoneVisible
-      ? client.data ?? []
-      : client.data?.where((chore) => !chore.isDone).toList() ?? [];
+      ? client.data?.reversed.toList() ?? []
+      : client.data?.reversed.where((chore) => !chore.isDone).toList() ?? [];
 
   int get doneCount => client.data?.where((chore) => chore.isDone).length ?? 0;
 
@@ -54,4 +54,6 @@ class ChoreListProvider extends InheritedWidget {
       scrollController.hasClients
           ? scrollController.addListener(listener)
           : null;
+
+  void updateChore(Chore chore) => client.update(chore, chore.id);
 }

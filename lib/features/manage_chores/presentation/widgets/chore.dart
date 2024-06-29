@@ -31,6 +31,7 @@ class _ChoreWidgetState extends State<ChoreWidget> {
         } else {
           Logs.log('${widget.chore.hashCode} confirmed');
           widget.chore.isDone = !widget.chore.isDone;
+          ChoreListProvider.of(context).updateChore(widget.chore);
           ChoreListProvider.of(context).refresh();
           return Future.value(false);
         }
@@ -93,7 +94,7 @@ class _ChoreWidgetState extends State<ChoreWidget> {
 }
 
 class _ChoreTextWidget extends StatelessWidget {
-  const _ChoreTextWidget({super.key, required this.chore});
+  const _ChoreTextWidget({required this.chore});
   final Chore chore;
 
   @override

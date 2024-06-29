@@ -36,7 +36,7 @@ class Chore {
     int? createdAt,
     String? deviceId,
   })  : deviceId = deviceId ?? 'leZaglushka',
-        id = id ?? UniqueKey().toString(),
+        id = id ?? UniqueKey().toString().substring(2, 7),
         deadline = deadline ??
             (deadlineInMs == null
                 ? null

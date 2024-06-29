@@ -7,4 +7,6 @@ class Logs {
   );
 
   static void log(String message) => logger.d(message);
+
+  static void elog(String message) => logger.e(message);
 }

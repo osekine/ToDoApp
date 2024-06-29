@@ -1,6 +1,5 @@
 import '../utils/logs.dart';
 import 'i_data_source.dart';
-import 'dart:math';
 
 class ClientModel<T> implements IDataSource<T> {
   IDataSource<T>? _localStorage;
@@ -22,7 +21,7 @@ class ClientModel<T> implements IDataSource<T> {
   void add(T item) {
     revision = revision + 1;
     Logs.log('Client rev: $revision');
-    data = [item, ...data ?? []];
+    data?.add(item);
     _localStorage?.add(item);
     _networkStorage?.add(item);
   }
@@ -87,5 +86,11 @@ class ClientModel<T> implements IDataSource<T> {
   @override
   void sync() {
     _localStorage?.sync();
+  }
+
+  @override
+  void update(T item, String id) {
+    _localStorage?.update(item, id);
+    _networkStorage?.update(item, id);
   }
 }
