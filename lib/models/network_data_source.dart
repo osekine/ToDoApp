@@ -93,7 +93,6 @@ class DioProxy<T> {
       final Response<String> response = await _dio.post(
         baseUrl,
         data: <String, dynamic>{'element': jsonDecode(body)},
-        options: Options(headers: {'X-Last-Known-Revision': revision}),
       );
       revision++;
       Logs.log(response.data!);

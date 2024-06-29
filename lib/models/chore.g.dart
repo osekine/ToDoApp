@@ -8,9 +8,7 @@ part of 'chore.dart';
 
 Chore _$ChoreFromJson(Map<String, dynamic> json) => Chore(
       name: json['text'] as String,
-      deadline: json['deadline'] == null
-          ? null
-          : DateTime.parse(json['deadline'] as String),
+      deadlineInMs: (json['deadline'] as num?)?.toInt(),
       isDone: json['done'] as bool? ?? false,
       priority: $enumDecodeNullable(_$PriorityEnumMap, json['importance']) ??
           Priority.none,
@@ -22,7 +20,7 @@ Chore _$ChoreFromJson(Map<String, dynamic> json) => Chore(
 
 Map<String, dynamic> _$ChoreToJson(Chore instance) => <String, dynamic>{
       'text': instance.name,
-      'deadline': instance.deadline?.toIso8601String(),
+      'deadline': instance.deadlineInMs,
       'done': instance.isDone,
       'importance': _$PriorityEnumMap[instance.priority]!,
       'created_at': instance.createdAt,

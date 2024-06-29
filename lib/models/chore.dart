@@ -27,7 +27,8 @@ enum Priority {
 class Chore {
   Chore({
     required this.name,
-    this.deadline,
+    DateTime? deadline,
+    int? deadlineInMs,
     this.isDone = false,
     this.priority = Priority.none,
     String? id,
@@ -36,13 +37,22 @@ class Chore {
     String? deviceId,
   })  : deviceId = deviceId ?? 'leZaglushka',
         id = id ?? UniqueKey().toString(),
-        chagedAt = chagedAt ?? DateTime.now().microsecondsSinceEpoch,
-        createdAt = createdAt ?? DateTime.now().microsecondsSinceEpoch;
+        deadline = deadline ??
+            (deadlineInMs == null
+                ? null
+                : DateTime.fromMillisecondsSinceEpoch(deadlineInMs)),
+        deadlineInMs = deadlineInMs ?? deadline?.millisecondsSinceEpoch,
+        chagedAt = chagedAt ?? DateTime.now().millisecondsSinceEpoch,
+        createdAt = createdAt ?? DateTime.now().millisecondsSinceEpoch;
 
   @JsonKey(name: 'text')
   String name;
 
+  @JsonKey(includeToJson: false, includeFromJson: false)
   final DateTime? deadline;
+
+  @JsonKey(name: 'deadline')
+  int? deadlineInMs;
 
   @JsonKey(name: 'done')
   bool isDone;
