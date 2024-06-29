@@ -1,7 +1,8 @@
 part of 'i_data_source.dart';
 
-class LocalDataSource<T> extends LocalStorageProxy<T>
-    implements IDataSource<T> {
+class LocalDataSource<T> implements IDataSource<T> {
+  final LocalStorageProxy<T> _proxy = LocalStorageProxy<T>();
+
   @override
   List<T>? data;
 
@@ -26,7 +27,7 @@ class LocalDataSource<T> extends LocalStorageProxy<T>
 
   @override
   Future<List<T>?> getData() async {
-    final loadedData = await load();
+    final loadedData = await _proxy.load();
     revision = loadedData.$1 ?? 0;
     Logs.log('Local rev: $revision');
     data = loadedData.$2;
@@ -43,11 +44,11 @@ class LocalDataSource<T> extends LocalStorageProxy<T>
   void sync() {
     Logs.log('LOCAL Syncing...');
     revision = revision + 1;
-    save(data ?? [], revision);
+    _proxy.save(data ?? [], revision);
   }
 }
 
-abstract class LocalStorageProxy<T> {
+class LocalStorageProxy<T> {
   final Future<SharedPreferences> _storage = SharedPreferences.getInstance();
 
   void save(List<T> list, int revision) async {

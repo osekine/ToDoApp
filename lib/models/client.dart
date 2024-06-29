@@ -1,5 +1,6 @@
 import '../utils/logs.dart';
 import 'i_data_source.dart';
+import 'dart:math';
 
 class ClientModel<T> implements IDataSource<T> {
   IDataSource<T>? _localStorage;
@@ -19,11 +20,11 @@ class ClientModel<T> implements IDataSource<T> {
 
   @override
   void add(T item) {
-    //TODO: add network choose
     revision = revision + 1;
     Logs.log('Client rev: $revision');
     data = [item, ...data ?? []];
     _localStorage?.add(item);
+    _networkStorage?.add(item);
   }
 
   @override
@@ -39,17 +40,41 @@ class ClientModel<T> implements IDataSource<T> {
 
   @override
   Future<List<T>?> getData() async {
+    List<T>? networkData;
+    List<T>? localData;
     try {
-      data = await _networkStorage?.getData();
+      networkData = await _networkStorage?.getData();
     } catch (e) {
       Logs.log('$e');
-      try {
-        data = await _localStorage?.getData();
-        revision = _localStorage?.revision ?? 0;
-      } catch (e) {
-        Logs.log('$e');
-      }
     }
+    try {
+      localData = await _localStorage?.getData();
+    } catch (e) {
+      Logs.log('$e');
+    }
+    // if (networkData != null) {
+    //   revision =
+    //       max(_networkStorage?.revision ?? 0, _localStorage?.revision ?? 0);
+    //   if (revision > _networkStorage!.revision) {
+    //     data = localData;
+    //     _networkStorage!.data = data;
+    //     _networkStorage!.sync();
+    //     revision = _networkStorage!.revision;
+    //     _localStorage?.revision = revision;
+    //   }
+    // }
+    if (networkData != null) {
+      data = networkData;
+      revision = _networkStorage!.revision;
+      _localStorage?.data = data;
+      _localStorage?.sync();
+    } else {
+      data = _localStorage?.data;
+    }
+
+    _networkStorage?.revision = revision;
+    _localStorage?.revision = revision;
+
     return data;
   }
 

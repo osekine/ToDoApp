@@ -33,7 +33,9 @@ class Chore {
     String? id,
     int? chagedAt,
     int? createdAt,
-  })  : id = id ?? UniqueKey().toString(),
+    String? deviceId,
+  })  : deviceId = deviceId ?? 'leZaglushka',
+        id = id ?? UniqueKey().toString(),
         chagedAt = chagedAt ?? DateTime.now().microsecondsSinceEpoch,
         createdAt = createdAt ?? DateTime.now().microsecondsSinceEpoch;
 
@@ -57,7 +59,7 @@ class Chore {
   final String id;
 
   @JsonKey(name: 'last_updated_by')
-  final String deviceId = 'le_Zaglushka';
+  final String deviceId;
 
   Chore copyWith({
     String? name,
