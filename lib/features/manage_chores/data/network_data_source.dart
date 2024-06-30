@@ -20,7 +20,7 @@ class NetworkDataSource<T> implements IDataSource<T> {
   Future<List<T>?> getData() async {
     data = await _proxy.load();
     revision = _proxy.revision;
-    return data;
+    return data ?? [];
   }
 
   @override
@@ -75,6 +75,8 @@ class DioProxy<T> {
         final jsonBody = jsonDecode(response.data!);
         final listBody = jsonBody['list'] as List;
         revision = jsonBody['revision'] as int;
+
+        //Буду очень рад помощи по этому костылю
         loadedData =
             listBody.map((e) => Chore.fromJson(e) as T).toList(); //TODO: fix
         Logs.log('Network Rev: $revision');
@@ -82,7 +84,7 @@ class DioProxy<T> {
     } catch (e) {
       Logs.elog('$e');
     }
-    return Future.value(loadedData ?? <T>[]);
+    return Future.value(loadedData ?? []);
   }
 
   void save(T data) async {

@@ -20,7 +20,13 @@ class NewChoreScreen extends StatefulWidget {
 
 class _NewChoreScreenState extends State<NewChoreScreen> {
   final textController = TextEditingController();
+
+  //Нужно для блокировки выбора приоритета, даты и удаления,
+  //если TextField пустой (пока работает только для даты)
+
+  //TODO: доделать, уже 4 утра, сил моих нет на это
   bool hasChore = false;
+
   DateTime? dateTime;
   Priority priority = Priority.none;
 

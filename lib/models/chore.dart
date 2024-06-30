@@ -35,7 +35,8 @@ class Chore {
     int? chagedAt,
     int? createdAt,
     String? deviceId,
-  })  : deviceId = deviceId ?? 'leZaglushka',
+  })  : deviceId = deviceId ??
+            'leZaglushka', //Забыл убрать заглушку, потом поменяю на deviceInfo
         id = id ?? const Uuid().v1(),
         deadline = deadline ??
             (deadlineInMs == null

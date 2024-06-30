@@ -3,7 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:to_do_app/constants/themes.dart';
 import 'package:to_do_app/features/manage_chores/presentation/screens/home.dart';
 import 'package:to_do_app/models/chore.dart';
-import 'package:to_do_app/models/client.dart';
+import 'package:to_do_app/features/manage_chores/data/client.dart';
 import 'package:to_do_app/utils/logs.dart';
 
 import 'generated/l10n.dart';

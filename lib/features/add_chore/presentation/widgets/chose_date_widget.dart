@@ -11,6 +11,7 @@ class ChoseDateWidget extends StatefulWidget {
 
 class _ChoseDateWidgetState extends State<ChoseDateWidget> {
   DateTime? date;
+
   bool canSwitch = false;
 
   void chooseDate(bool value) async {

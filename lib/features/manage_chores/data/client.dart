@@ -1,4 +1,4 @@
-import '../utils/logs.dart';
+import '../../../utils/logs.dart';
 import 'i_data_source.dart';
 
 class ClientModel<T> implements IDataSource<T> {
@@ -39,11 +39,16 @@ class ClientModel<T> implements IDataSource<T> {
       Logs.log('$e');
     }
 
-    if (networkData?.isEmpty ?? false) {
-      if (_localStorage?.revision != null &&
-          _localStorage!.revision > _networkStorage!.revision) {
-        _networkStorage!.data = List.from(localData as Iterable);
-        _networkStorage!.sync();
+    //Проверка на совпадение версии. Если network отстает - синхронизируем с local и наоборот
+    if (networkData?.isNotEmpty ?? false) {
+      if (_localStorage?.revision != null) {
+        if (_localStorage!.revision > _networkStorage!.revision) {
+          _networkStorage!.data = List.from(localData as Iterable);
+          _networkStorage!.sync();
+        } else {
+          _localStorage!.data = List.from(networkData as Iterable);
+          _localStorage!.sync();
+        }
         _localStorage!.revision = _networkStorage!.revision;
       }
       data = _networkStorage!.data;

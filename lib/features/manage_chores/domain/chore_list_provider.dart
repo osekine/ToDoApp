@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/models/chore.dart';
-import 'package:to_do_app/models/client.dart';
+import 'package:to_do_app/features/manage_chores/data/client.dart';
 
 /*
   Идея: переделать на InheritedModel, сделать три аспекта: title, visibility и list
