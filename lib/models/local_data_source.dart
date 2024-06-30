@@ -59,12 +59,12 @@ class LocalStorageProxy<T> {
   Future<(int?, List<T>?)> load() async {
     Logs.log('LOCAL Loading...');
     final storage = await _storage;
-    return (
-      storage.getInt('revision'),
-      storage
-          .getStringList('list')
-          ?.map((e) => Chore.fromJson(jsonDecode(e)) as T) // TODO: fix
-          .toList()
-    );
+    final revision = storage.getInt('revision');
+    final list = storage
+        .getStringList('list')
+        ?.map((e) => Chore.fromJson(jsonDecode(e)) as T) // TODO: fix
+        .toList();
+
+    return (revision ?? 0, list ?? []);
   }
 }

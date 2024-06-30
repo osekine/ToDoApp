@@ -14,7 +14,6 @@ class ClientModel<T> implements IDataSource<T> {
   ClientModel({this.data}) {
     _localStorage = LocalDataSource<T>();
     _networkStorage = NetworkDataSource<T>();
-    getData();
   }
 
   @override
@@ -43,15 +42,15 @@ class ClientModel<T> implements IDataSource<T> {
     if (networkData?.isEmpty ?? false) {
       if (_localStorage?.revision != null &&
           _localStorage!.revision > _networkStorage!.revision) {
-        _networkStorage!.data = localData;
+        _networkStorage!.data = List.from(localData as Iterable);
         _networkStorage!.sync();
         _localStorage!.revision = _networkStorage!.revision;
       }
       data = _networkStorage!.data;
       revision = _networkStorage!.revision;
     } else {
-      data = localData;
-      revision = _localStorage!.revision;
+      data = _localStorage?.data ?? [];
+      revision = _localStorage?.revision ?? 0;
     }
 
     _networkStorage?.revision = revision;
