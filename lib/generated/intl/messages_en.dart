@@ -30,6 +30,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "newChore": MessageLookupByLibrary.simpleMessage("New"),
         "priority_none": MessageLookupByLibrary.simpleMessage("None"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
-        "title": MessageLookupByLibrary.simpleMessage("My chores")
+        "title": MessageLookupByLibrary.simpleMessage("My chores"),
       };
 }
